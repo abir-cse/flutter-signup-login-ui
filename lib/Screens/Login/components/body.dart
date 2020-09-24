@@ -24,8 +24,10 @@ class Body extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             CircleShape(
-              color: myPrimaryColor,
               textColor: Colors.white,
+              myText: "LOGIN",
+              color: myPrimaryColor,
+              myFontSize: 40,
             ),
             SizedBox(height: size.height * 0.08),
             RoundedInputField(

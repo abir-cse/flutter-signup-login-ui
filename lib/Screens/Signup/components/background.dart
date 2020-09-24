@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_signup_login/Screens/Welcome/welcome_screens.dart';
 import 'package:flutter_signup_login/constants.dart';
 
 class Background extends StatelessWidget {
@@ -23,9 +24,15 @@ class Background extends StatelessWidget {
           alignment: Alignment.center,
           children: <Widget>[
             Positioned (
-              top: 30,
-              left: 30,
-              child: Icon(Icons.close, color: myPrimaryColor,),
+              top: 20,
+              left: 20,
+              child: IconButton(
+                icon: Icon(Icons.close),
+                color: myPrimaryColor,
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => WelcomeScreen()),);
+                },
+              ),
             ),
             child,
           ],
