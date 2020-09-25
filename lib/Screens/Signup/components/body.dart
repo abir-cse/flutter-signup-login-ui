@@ -1,5 +1,4 @@
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_signup_login/Screens/Login/login_screens.dart';
 import 'package:flutter_signup_login/Screens/Signup/components/background.dart';
@@ -8,14 +7,12 @@ import 'package:flutter_signup_login/components/rounded_button.dart';
 import 'package:flutter_signup_login/components/rounded_input_field.dart';
 import 'package:flutter_signup_login/components/rounded_password_field.dart';
 import 'package:flutter_signup_login/components/save_value.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../constants.dart';
 
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    String emailText, passwordText;
+    String myName,emailText, passwordText;
     Size size = MediaQuery.of(context).size;
     return Background(
       child: Container(
@@ -34,7 +31,9 @@ class Body extends StatelessWidget {
                 textInputType: TextInputType.name,
                 hintText: "DISPLAY NAME",
                 icon: Icons.account_circle,
-                onChanged: (value) {},
+                onChanged: (value) {
+                  myName = value;
+                  },
               ),
               RoundedInputField(
                 hintText: "Your Email",
@@ -54,18 +53,37 @@ class Body extends StatelessWidget {
                 color: myPrimaryColor,
                 textColor: Colors.white,
                 press: () {
-                  if (emailText.contains('@')) {
-                    saveValue('email', emailText);
-                    saveValue('password', passwordText).then((value) {
-                      if (value == 'success') {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => LoginScreen()),
-                        );
+                  if (myName != null) {
+                    if (emailText.contains('@')) {
+                      if (passwordText.length >= 6 ) {
+                        saveValue('email', emailText);
+                        saveValue('password', passwordText).then((value) {
+                          if (value == 'success') {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => LoginScreen()),
+                            );
+                          }
+                        });
+                      } else {
+                        Scaffold.of(context).showSnackBar(new SnackBar(
+                          content: new Text('Password must be six characters !'),
+                          backgroundColor: Colors.red,
+                        ));
                       }
-                    });
+                    } else {
+                      print('Incorect Email Format');
+                      Scaffold.of(context).showSnackBar(new SnackBar(
+                        content: new Text('Incorrect Email !'),
+                        backgroundColor: Colors.red,
+                      ));
+                    }
                   } else {
-                    print('Incorect Email Format');
+                    Scaffold.of(context).showSnackBar(
+                        SnackBar(
+                      content: new Text('Name can not be empty !'),
+                          backgroundColor: Colors.red,
+                    ));
                   }
                 },
               ),

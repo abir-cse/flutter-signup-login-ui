@@ -16,15 +16,15 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    getValue('status').then((value) {
-      print("------status-------"+value);
-      if (value == '1') {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => WalletScreen()),
-        );
-      }
-    });
+//    getValue('status').then((value) {
+//      print("------status-------"+value);
+//      if (value == '1') {
+//        Navigator.push(
+//          context,
+//          MaterialPageRoute(builder: (context) => WalletScreen()),
+//        );
+//      }
+//    });
     return Background(
       child: SingleChildScrollView(
         child: Column(
@@ -53,11 +53,20 @@ class Body extends StatelessWidget {
             RoundedButton(
               text: "LOGIN",
               press: () {
-                print("Login tapped ");
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
-                );
+                getValue('status').then((value) {
+                  print("------status-------"+value);
+                  if (value == '1') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => WalletScreen()),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                    );
+                  }
+                });
               },
             ),
             OutlineButton_ (

@@ -48,7 +48,6 @@ class Body extends StatelessWidget {
               color: myPrimaryColor,
               textColor: Colors.white,
               press: () {
-                print('7. login pressed-----------------');
                 getValue('email').then((value) {
                   if (value == emailText) {
                     getValue('password').then((value2) {
@@ -61,10 +60,18 @@ class Body extends StatelessWidget {
                         );
                       } else {
                         print ('Incorrect Password');
+                        Scaffold.of(context).showSnackBar(new SnackBar(
+                          content: new Text('Incorrect Password !'),
+                          backgroundColor: Colors.red,
+                        ));
                       }
                     });
                   } else {
                     print ('Incorrect Email');
+                    Scaffold.of(context).showSnackBar(new SnackBar(
+                      content: new Text('Incorrect Email !'),
+                      backgroundColor: Colors.red,
+                    ));
                   }
                 });
               },
