@@ -8,6 +8,7 @@ import 'package:flutter_signup_login/components/get_value.dart';
 import 'package:flutter_signup_login/components/mini_circle.dart';
 import 'package:flutter_signup_login/components/rounded_button.dart';
 import 'package:flutter_signup_login/components/outline_button.dart';
+import 'package:flutter_signup_login/components/shared_preferences_key_check.dart';
 
 import 'package:flutter_signup_login/constants.dart';
 import 'background.dart';
@@ -53,13 +54,22 @@ class Body extends StatelessWidget {
             RoundedButton(
               text: "LOGIN",
               press: () {
-                getValue('status').then((value) {
-                  print("------status-------"+value);
-                  if (value == '1') {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => WalletScreen()),
-                    );
+                ifKeyExists('status').then((value) {
+                  if (value == 'success') {
+                    getValue('status').then((value) {
+                      print("------status-------"+value);
+                      if (value == '1') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => WalletScreen()),
+                        );
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginScreen()),
+                        );
+                      }
+                    });
                   } else {
                     Navigator.push(
                       context,
